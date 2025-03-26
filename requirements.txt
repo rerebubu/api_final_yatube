@@ -1,5 +1,5 @@
 requests
-django
+django == 5
 pytest
 pytest-django
 djangorestframework
