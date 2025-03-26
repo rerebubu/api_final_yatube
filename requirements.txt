@@ -1,11 +1,12 @@
-Django == 3.1.X
+Django==3.2.10
+djangorestframework==3.12.4
+django-filter==2.4.0
+django-allauth==0.41.0
 pytest==6.2.4
-pytest-pythonpath==0.7.3
 pytest-django==4.4.0
-djangorestframework
-djangorestframework-simplejwt
-Pillow==11.1.0
-PyJWT
+pytest-pythonpath==0.7.3
+Pillow==8.3.2
+PyJWT==2.3.0
 requests==2.26.0
-django-allauth
+djangorestframework-simplejwt==4.8.0
 
