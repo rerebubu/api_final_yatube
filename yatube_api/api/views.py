@@ -1,6 +1,7 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, filters, mixins
 from django.shortcuts import get_object_or_404
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.permissions import (
     IsAuthenticatedOrReadOnly,
@@ -67,5 +68,6 @@ class CommentViewSet(viewsets.ModelViewSet):
         # здесь проверка, что пользователь может редактировать свой комментарий
         comment = self.get_object()
         if comment.author != self.request.user:
-            raise PermissionDenied('You do not have permission to edit this comment.')
+            raise PermissionDenied(
+                'You do not have permission to edit this comment.')
         serializer.save()
