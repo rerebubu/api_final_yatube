@@ -1,10 +1,3 @@
-# API для Yatube
-
-[![Python](https://img.shields.io/badge/-Python-464641?style=flat-square&logo=Python)](https://www.python.org/)
-[![Django](https://img.shields.io/badge/Django-464646?style=flat-square&logo=django)](https://www.djangoproject.com/)
-[![Pytest](https://img.shields.io/badge/Pytest-464646?style=flat-square&logo=pytest)](https://docs.pytest.org/en/6.2.x/)
-[![Postman](https://img.shields.io/badge/Postman-464646?style=flat-square&logo=postman)](https://www.postman.com/)
-
 ## Описание
 
 Яндекс Практикум. Спринт 9. Итоговый проект. API для Yatube.
@@ -22,7 +15,7 @@
 1. Клонировать репозиторий:
 
    ```python
-   git clone https://github.com/egorcoders/api_final_yatube.git
+   git clone https://github.com/rerebubu/api_final_yatube.git
    ```
 
 2. Перейти в папку с проектом:
@@ -34,7 +27,7 @@
 3. Установить виртуальное окружение для проекта:
 
    ```python
-   python -m venv venv
+   python3 -m venv venv
    ```
 
 4. Активировать виртуальное окружение для проекта:
@@ -57,7 +50,6 @@
 6. Выполнить миграции на уровне проекта:
 
    ```python
-   cd yatube
    python3 manage.py makemigrations
    python3 manage.py migrate
    ```
@@ -83,7 +75,7 @@
 
    ```json
    {
-     "text": "Мой первый пост."
+     "text": "Крутой пост"
    }
    ```
 
@@ -92,9 +84,9 @@
    ```json
    {
      "id": 2,
-     "author": "Dmitrii",
-     "text": "Мой первый пост.",
-     "pub_date": "2022-04-22T12:00:22.021094Z",
+     "author": "Egor",
+     "text": "Крутой пост",
+     "pub_date": "2025-03-25T12:00:22.021094Z",
      "image": null,
      "group": null
    }
@@ -109,7 +101,7 @@
    ```json
    {
      "post": 1,
-     "text": "Тест"
+     "text": "Кошка"
    }
    ```
 
@@ -118,9 +110,9 @@
    ```json
    {
      "id": 1,
-     "author": "Dmitrii",
-     "text": "Тест",
-     "created": "2022-04-22T12:06:13.146875Z",
+     "author": "Egor",
+     "text": "Кошка",
+     "created": "2025-03-25T12:06:13.146875Z",
      "post": 1
    }
    ```
