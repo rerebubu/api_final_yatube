@@ -59,6 +59,6 @@ class CommentViewSet(viewsets.ModelViewSet):
         # Проверяем, что только автор может обновить свой комментарий
         comment = self.get_object()
         if comment.author != self.request.user:
-            raise PermissionDenied("You do not have permission to "
-            "edit this comment.")
+            raise PermissionDenied(
+                "You do not have permission to edit this comment.")
         serializer.save()
