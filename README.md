@@ -1,85 +1,138 @@
-#  <img src="https://github.com/StasKrut/hw05_final/blob/master/yatube/static/img/logo.png" width="100"> atube project API
+# API для Yatube
 
+[![Python](https://img.shields.io/badge/-Python-464641?style=flat-square&logo=Python)](https://www.python.org/)
+[![Django](https://img.shields.io/badge/Django-464646?style=flat-square&logo=django)](https://www.djangoproject.com/)
+[![Pytest](https://img.shields.io/badge/Pytest-464646?style=flat-square&logo=pytest)](https://docs.pytest.org/en/6.2.x/)
+[![Postman](https://img.shields.io/badge/Postman-464646?style=flat-square&logo=postman)](https://www.postman.com/)
 
-### Описание
-Проект представляет собой API для небольшой социальной сети Yatube, в рамках которого возможно создание и аутентификация пользователей, создание записей, комментариев к ним и подписка на полюбившихся авторов. Записи могут разделяться по группам.
+## Описание
 
-### Стек технологий, использованный в проекте:
+Яндекс Практикум. Спринт 9. Итоговый проект. API для Yatube.
 
-- Python 3.7
+## Функционал
 
-- Django 2.2.28
+- Подписка и отписка от авторизованного пользователя;
+- Авторизованный пользователь просматривает посты, создавёт новые, удаляет и изменяет их;
+- Просмотр сообществ;
+- Комментирование, просмотр, удаление и обновление комментариев;
+- Фльтрация по полям.
 
-- DRF
+## Установка
 
-- JWT
+1. Клонировать репозиторий:
 
-### Запуск проекта в dev-режиме:
+   ```python
+   git clone https://github.com/egorcoders/api_final_yatube.git
+   ```
 
-- Клонировать репозиторий и перейти в него в командной строке.
-- Установить и активировать виртуальное окружение c учетом версии Python 3.7 (выбираем python не ниже 3.7):
+2. Перейти в папку с проектом:
 
-```py -3.7 -m venv venv```
+   ```python
+   cd api_final_yatube/
+   ```
 
-```source venv/Scripts/activate```
-- Затем нужно установить все зависимости из файла requirements.txt
+3. Установить виртуальное окружение для проекта:
 
-```python -m pip install --upgrade pip```
+   ```python
+   python -m venv venv
+   ```
 
-```pip install -r requirements.txt```
-- Выполняем миграции:
+4. Активировать виртуальное окружение для проекта:
 
-```python manage.py migrate```
-- Создаем суперпользователя:
+   ```python
+   # для OS Lunix и MacOS
+   source venv/bin/activate
 
-```python manage.py createsuperuser```
+   # для OS Windows
+   source venv/Scripts/activate
+   ```
 
-Документация  REDOC будет доступна по [ссылке](http://127.0.0.1:8000/redoc/).
+5. Установить зависимости:
 
-### Примеры запросов
+   ```python
+   python3 -m pip install --upgrade pip
+   pip install -r requirements.txt
+   ```
 
+6. Выполнить миграции на уровне проекта:
+
+   ```python
+   cd yatube
+   python3 manage.py makemigrations
+   python3 manage.py migrate
+   ```
+
+7. Запустить проект:
+
+   `python manage.py runserver`
+
+## Примеры запросов
+
+Получение токена
+
+Отправить POST-запрос на адрес `api/v1/jwt/create/` и передать 2 поля в `data`:
+
+1. `username` - имя пользователя.
+2. `password` - пароль пользователя.
+
+Создание поста
+
+Отправить POST-запрос на адрес `api/v1/posts/` и передать обязательное поле `text`, в заголовке указать `Authorization`:`Bearer <токен>`.
+
+1. Пример запроса:
+
+   ```json
+   {
+     "text": "Мой первый пост."
+   }
+   ```
+
+2. Пример ответа:
+
+   ```json
+   {
+     "id": 2,
+     "author": "Dmitrii",
+     "text": "Мой первый пост.",
+     "pub_date": "2022-04-22T12:00:22.021094Z",
+     "image": null,
+     "group": null
+   }
+   ```
+
+Комментирование поста пользователя
+
+Отправить POST-запрос на адрес `api/v1/posts/{post_id}/comments/` и передать обязательные поля `post` и `text`, в заголовке указать `Authorization`:`Bearer <токен>`.
+
+1. Пример запроса:
+
+   ```json
+   {
+     "post": 1,
+     "text": "Тест"
+   }
+   ```
+
+2. Пример ответа:
+
+   ```json
+   {
+     "id": 1,
+     "author": "Dmitrii",
+     "text": "Тест",
+     "created": "2022-04-22T12:06:13.146875Z",
+     "post": 1
+   }
+   ```
+
+## Ресурсы
+
+```python
+# Документаия проекта
+http://127.0.0.1:8000/redoc/
 ```
-GET  http://127.0.0.1:8000/api/v1/posts/
-```
-Результат:
-```json
-[
-    {
-        "id": 1,
-        "author": "newbor",
-        "text": "Hey",
-        "pub_date": "2022-08-08T18:41:19.125087Z",
-        "image": null,
-        "group": null
-    },
-    {
-        "id": 2,
-        "author": "newbor",
-        "text": "Тестовый пост",
-        "pub_date": "2022-08-09T13:23:43.516385Z",
-        "image": null,
-        "group": null
-    }
-]
-```
-```
-POST  http://127.0.0.1:8000/api/v1/follow/
-```
-Данные запроса: 
-```json
-{
-  "following": "leo"
-}
-```
-Результат: 
-```json
-{
-    "id": 1,
-    "following": "leo",
-    "user": "newbor"
-}
-```
-Проект сделан в рамках учебного процесса по специализации Python-разработчик (backend) Яндекс.Практикум.
 
-Автор в рамках учебного курса ЯП Python - разработчик:
-- :white_check_mark: [Stanislav Krutskikh](https://github.com/StasKrut)
+```python
+# ПО для тестирования API, Postman
+https://www.postman.com/
+```
