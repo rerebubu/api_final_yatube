@@ -1,31 +1,42 @@
-# API_FINAL_YATUBE 
+# Описание
 
-API_Final - законченная версия API для yatube. 
+Проект представляет собой API для проекта yatube.
 
-Стек: Python 3.7, Django Rest Framework, SQLite
+Функционал:
+Авторизация по JWT токену
 
-# Как запустить проект:
+Сериализация данных для всех моделей проекта (Post, Comment, Group, Follow)
 
-- Клонировать репозиторий и перейти в него в командной строке:
-```
-git@github.com:LazarevaKate/api_final_yatube.git
-```
+Обработка GET, POST, PATCH, PUT и DELETE запросов к базе данных проекта Yatube
 
-- Cоздать и активировать виртуальное окружение:
-```
-python3 -m venv env
-source env/bin/activate
-```
-- Установить зависимости из файла requirements.txt:
-```
-python3 -m pip install --upgrade pip
-pip install -r requirements.txt
-```
-- Выполнить миграции:
-```
-python3 manage.py migrate
-```
-- Запустить проект:
-```
-python3 manage.py runserver
-```
+# Установка
+
+## 1)Склонировать репозиторий
+## 2)Создать и активировать виртуальное окружение для проекта
+
+python -m venv venv
+
+source venv/scripts/activate
+
+## 3)Установить зависимости
+python pip install -r requirements.txt
+
+## 4)Сделать миграции
+python manage.py makemigrations
+python manage.py migrate
+
+## 5)Запустить сервер
+python manage.py runserver
+
+# Примеры
+
+Для доступа к API необходимо получить токен: 
+Нужно выполнить POST-запрос localhost:8000/api/v1/token/ передав поля username и password. API вернет JWT-токеню
+
+Дальше, передав токен можно будет обращаться к методам, например: 
+
+/api/v1/posts/ (GET, POST, PUT, PATCH, DELETE)
+
+При отправке запроса передавайте токен в заголовке Authorization: Bearer <токен>
+
+Слово Bearer здесь заменяет слово Token и означает, что за ним следует сам токен.
