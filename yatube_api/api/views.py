@@ -2,6 +2,7 @@ from rest_framework.generics import get_object_or_404
 from rest_framework import viewsets, filters
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.exceptions import PermissionDenied
 
 from posts.models import Post, Follow, Comment, Group
 from .serializers import (
@@ -58,5 +59,6 @@ class CommentViewSet(viewsets.ModelViewSet):
         # Проверяем, что только автор может обновить свой комментарий
         comment = self.get_object()
         if comment.author != self.request.user:
-            raise PermissionDenied("You do not have permission to edit this comment.")
+            raise PermissionDenied("You do not have permission to "
+            "edit this comment.")
         serializer.save()
