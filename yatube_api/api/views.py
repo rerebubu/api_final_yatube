@@ -47,10 +47,16 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         post_id = self.kwargs.get('post_id')
-        new_queryset = Comment.objects.filter(post=post_id)
-        return new_queryset
+        return Comment.objects.filter(post=post_id)
 
     def perform_create(self, serializer):
         post_id = self.kwargs.get('post_id')
         post = get_object_or_404(Post, id=post_id)
         serializer.save(author=self.request.user, post=post)
+
+    def perform_update(self, serializer):
+        # Проверяем, что только автор может обновить свой комментарий
+        comment = self.get_object()
+        if comment.author != self.request.user:
+            raise PermissionDenied("You do not have permission to edit this comment.")
+        serializer.save()
